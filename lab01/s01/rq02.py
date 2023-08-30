@@ -1,6 +1,5 @@
 from graphql import run_query
 
-
 rq02_query = """
   {
     query SearchRepositories($queryString: String!, $first: Int!, $after: String){
@@ -17,6 +16,7 @@ rq02_query = """
         pageInfo {
           endCursor
           hasNextPage
+        }
       }
     }
   }

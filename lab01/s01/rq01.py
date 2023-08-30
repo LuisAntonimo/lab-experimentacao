@@ -14,6 +14,7 @@ rq01_query = """
         pageInfo {
           endCursor
           hasNextPage
+        }
       }
     }
   }
