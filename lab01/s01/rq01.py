@@ -1,23 +1,23 @@
 from graphql import run_query
 
 rq01_query = """
-  {
-    query SearchRepositories($queryString: String!, $first: Int!, $after: String){
-      search(query: "stars:>100", type: REPOSITORY, first: 100) {
-        nodes {
+  query ($after: String){
+    search(query: "stars:>100", type: REPOSITORY, first: 100, after: $after) {
+      edges {
+        node {
           ... on Repository {
             name
             stargazerCount
-           createdAt
+          createdAt
           }
         }
-        pageInfo {
-          endCursor
-          hasNextPage
-        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
   }
 """
 
-run_query(rq01_query)
+run_query(rq01_query, 'rq01', ["Repository", "Stars", "Creation Date"])

@@ -1,15 +1,16 @@
 from graphql import run_query
 
 rq03_query = """
-  {
-    query SearchRepositories($queryString: String!, $first: Int!, $after: String){
-      search(query: "stars:>100", type: REPOSITORY, first: 100) {
-        nodes {
-          ... on Repository {
-            name
-            stargazerCount
-            releases (orderBy: {field: CREATED_AT, direction: DESC}){
-             totalCount
+  query ($after: String){
+    search(query: "stars:>100", type: REPOSITORY, first: 100, after: $after) {
+        edges {
+          node {
+            ... on Repository {
+              name
+              stargazerCount
+              releases (orderBy: {field: CREATED_AT, direction: DESC}){
+                totalCount
+              }
             }
           }
         }
@@ -19,7 +20,6 @@ rq03_query = """
         }
       }
     }
-  }
 """
 
-run_query(rq03_query)
+run_query(rq03_query,'rq03', ["Repository", "Stars", "Total Releases"])
